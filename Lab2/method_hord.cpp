@@ -28,7 +28,9 @@ double horda(double Left,double Right,double Eps, double Delta, int &N)
 {
 	double FLeft = Round(f(Left), Delta);
 	double FRight = Round(f(Right), Delta);
-	double X,Y;
+	double Y;
+	double old_x;
+	double X = 2.0;//random start value
 	if (FLeft*FRight>0.0) 
 	{
 		puts("Неверное задание интервала\n");
@@ -43,7 +45,8 @@ double horda(double Left,double Right,double Eps, double Delta, int &N)
 	if (FLeft==0.0) return Left;
 	if (FRight==0.0) return Right;
 	do
-	{
+	{	
+		old_x = X;
 		X = Left-(Right-Left)*FLeft/(FRight-FLeft);
 	       	Y = Round(f(X), Delta);
 		if (Y == 0.0) return (X);
@@ -59,7 +62,7 @@ double horda(double Left,double Right,double Eps, double Delta, int &N)
        		}
 		N++;
        	}
-	while ( fabs(Y) >= Eps );
+	while ( fabs(old_x - X) >= Eps );
 return(X); 
 }
 
@@ -68,12 +71,12 @@ int main()
 {
 	double x;
 	int n;
-	for(double delta = 0.1; delta >= 10E-6; delta *= 0.1)
+	for(double delta = 0.1; delta > 10E-7; delta *= 0.1)
 	{
 		cout << "Delta = " << delta << endl;
-		for(double eps = 0.1; eps >= 10E-6; eps *= 0.1)\
+		for(double eps = 0.1; eps > 10E-7; eps *= 0.1)\
 		{
-			x = Round(horda(1.0, 2.0, eps, delta, n), eps);
+			x = horda(1.0, 2.0, eps, delta, n);
 			cout << "Eps = " << eps << endl;
 			cout << "x = " << x << " for " << n << " iteration" << endl; 
 		}
