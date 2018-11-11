@@ -7,7 +7,7 @@ using namespace std;
 //f' = 1/x + 2*x/(1 + x^2)^2
 double f1(double x)
 {
-	return 1/x + 2*x/((1 + x*x)*(1 + x*x));	
+	return 1 - 0.925925*(1/x + 2*x((1 + x*x) * (1 + x*x));	
 }
 
 //f = ln(x) - 1(1 + x^2)
